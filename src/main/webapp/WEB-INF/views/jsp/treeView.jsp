@@ -17,7 +17,7 @@
         <h1>Tree View</h1>
         
         <!-- 3 setup a container element -->
-        <div id="jstree">
+        <div id="jstree1">
           <!-- in this example the tree is populated from inline HTML -->
           <!--ul>
             <li>Root node 1
@@ -32,8 +32,14 @@
         </div>
         
         <button>demo button</button>
+        <br>
+        <form>
+            <br>
+            Search <input id="search_tree" type="text" /> 
+        </form>
+        <br>
         
-        <div id="jstree_demo_div"></div>
+        <div id="jstree"></div>
         
         <script src="resources/core/js/jquery.min.js" > </script>
         <script src="resources/core/js/jstree.min.js" > </script>
@@ -41,26 +47,44 @@
         <script>
             $(function() { 
                 
-                $('#jstree').jstree({'core' : {
+                $("#jstree").jstree({"core" : {
                     'data' : [
                         { "id" : "ajson1", "parent" : "#", "text" : "root1" },
                         { "id" : "ajson2", "parent" : "#", "text" : "root2" },
                         { "id" : "child_node_1", "parent" : "ajson1", "text" : "child 1" },
                         { "id" : "child_node_2", "parent" : "ajson1", "text" : "child 2" }
-                    ]
-                }   });
+                        ]
+                    } ,
+                    "plugins" : ["changed", "checkbox", "contextmenu", "search"]
+                });
+                                
                 
                 $('#jstree').jstree(); 
 
 
                 $('#jstree').on("changed.jstree", function(e, data){
                     console.log(data.selected);
-                });
+                });               
+                
 
                 $('button').on('click', function(){
                     $('#jstree').jstree(true).select_node('child_node_1');
                 });
-            });
+                
+                $(function(){
+                    var to = false;
+                    $('#search_tree').keyup(function(){
+                        if(to){
+                            clearTimeout(to);
+                        }
+                        to = setTimeout(function(){
+                            var v = $("#search_tree").val();
+                            $("#jstree").jstree(true).search(v);
+                        }, 250);
+                    });
+                            
+                });                
+            });            
 
         </script>
     
