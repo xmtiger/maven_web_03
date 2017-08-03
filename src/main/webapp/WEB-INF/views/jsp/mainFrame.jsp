@@ -8,10 +8,10 @@
 <!DOCTYPE html>
 <html>
     <frameset rows="20%, 80%">
-        <frame src="helloPage"></frame>
+        <frame src="helloPage" name="top_frame">
         <frameset cols="20%, 80%">
-            <frame src="treeView"/>
-            <frame src="welcome"/>
+            <frame src="treeView" name="left_frame">
+            <frame src="welcome" name="right_frame">
         </frameset>
     </frameset>
 </html>
